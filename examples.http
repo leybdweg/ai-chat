@@ -11,5 +11,14 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8000/generate
+Content-Type: application/json
+
+{
+  "prompt": "ddddd"
+}
+
+###
+
 GET http://localhost:8000/output?ids=2&ids=3
 
