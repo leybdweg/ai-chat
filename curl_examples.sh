@@ -14,17 +14,18 @@ curl -X POST --location "http://localhost:8000/embed" \
 
 
 # generate response based on embbeded data
-curl -X POST --location "http://localhost:8000/generate_embed" \
+curl -X POST --location "http://localhost:8000/infer" \
     -H "Content-Type: application/json" \
     -d '{
           "prompt": "What animals are llamas related to?",
-          "model": "llama3.2:1b"
+          "model": "llama3.2:1b",
         }'
 
 # generate response w/o embedding (just for fun)
-curl -X POST --location "http://localhost:8000/generate" \
+curl -X POST --location "http://localhost:8000/infer" \
     -H "Content-Type: application/json" \
     -d '{
           "prompt": "What animals are llamas related to?",
-          "model": "llama3.2:1b"
+          "model": "llama3.2:1b",
+          "rag": false
         }'
