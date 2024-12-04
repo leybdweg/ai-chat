@@ -5,14 +5,13 @@ print('11111')
 chroma_client = chromadb.Client()
 print('22222')
 
-collection = chroma_client.create_collection(name="my_collection")
-print('333333')
+"""
 collection.add(
     documents=[
         "This is a document about pineapple",
         "This is a document about oranges"
     ],
-    metadatas=["aaa", "bbb"],
+    # metadatas=["aaa", "bbb"],
     ids=["id1", "id2"]
 )
 print('444444')
@@ -22,3 +21,6 @@ results = collection.query(
 )
 print('555555')
 print(results)
+# aaabc = 123
+"""
+

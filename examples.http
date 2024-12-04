@@ -1,0 +1,15 @@
+POST http://localhost:8000/embed
+Content-Type: application/json
+
+{
+  "texts": [
+    "aaaa",
+    "bbbb",
+    "cccc"
+  ]
+}
+
+###
+
+GET http://localhost:8000/output?ids=2&ids=3
+
