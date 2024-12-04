@@ -11,7 +11,7 @@ api_router = APIRouter()
 
 
 class PromptRequest(BaseModel):
-    model: str | None = None
+    model: str | None = "llama3.2:1b"
     prompt: str
 
 
@@ -21,7 +21,7 @@ async def generate_text(request: PromptRequest):
     prompt = request.prompt
 
     # Generate the response using the helper function
-    response = await generate_response(model, prompt)
+    response = await generate_response(prompt, model)
 
     return {"generated_text": response}
 

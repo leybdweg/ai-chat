@@ -4,6 +4,7 @@ from app.conversation_collection import conversations
 
 import ollama
 
+
 # async def embed_texts(texts: List[str]) -> None:
 async def embed_texts(texts) -> None:
     for i, d in enumerate(texts):
@@ -16,10 +17,11 @@ async def embed_texts(texts) -> None:
             documents=[d]
         )
 
+
 # async def generate_response(prompt, model) -> str:
 #     return "aa"
 # async def generate_response(prompt: str, model: str = "llama3.2:1b") -> str
-async def generate_response(prompt: str, model: str = "mxbai-embed-large") -> str:
+async def generate_response(prompt: str, model: str) -> str:
     # Call ollama's chat function and stream the response # TODO: whats stream mean here?
     stream = ollama.chat(
         model=model,
