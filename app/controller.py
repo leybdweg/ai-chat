@@ -4,7 +4,7 @@ from typing import List, Optional, Any
 from pydantic import BaseModel
 from fastapi import APIRouter, Query, Depends
 
-from app.conversation import generate_response, embed_texts
+from app.conversation import generate_response, embed_texts, generate_embbeded_response
 from app.conversation_collection import conversations
 
 api_router = APIRouter()
@@ -26,9 +26,18 @@ async def generate_text(request: PromptRequest):
     return {"generated_text": response}
 
 
+@api_router.post("/generate_embed")
+async def generate_embbeded_text(request: PromptRequest):
+    model = request.model
+    prompt = request.prompt
+
+    response = await generate_embbeded_response(prompt, model)
+
+    return {"generated_embedded_text": response}
+
+
 class EmbedRequest(BaseModel):
     texts: List[str]
-
 
 
 @api_router.post("/embed")
