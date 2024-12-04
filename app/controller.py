@@ -1,11 +1,9 @@
-from typing import List, Optional, Any
+from typing import List, Optional
 
-# from chromadb.api.types import ID, OneOrMany, Where
 from pydantic import BaseModel
-from fastapi import APIRouter, Query, Depends
+from fastapi import APIRouter, Query
 
-from app.conversation import generate_response, embed_texts, generate_embbeded_response
-from app.conversation_collection import conversations
+from app.conversation import generate_response, embed_texts, generate_embedded_response
 
 api_router = APIRouter()
 
@@ -30,7 +28,7 @@ async def generate_embbeded_text(request: PromptRequest):
     model = request.model
     prompt = request.prompt
 
-    response = await generate_embbeded_response(prompt, model)
+    response = await generate_embedded_response(prompt, model)
 
     return {"generated_embedded_text": response}
 
@@ -62,22 +60,3 @@ class OutputRequest(BaseModel):
         print('as_query - idsss0', ids, ids[0])
         print('as_query - idsss1 type', type(ids), type(ids[0]))
         return cls(ids=ids, where=where, limit=limit, offset=offset)
-
-        # print('as_query - idsss0', ids, ids[0])
-        # print('as_query - idsss1 type', type(ids), type(ids[0]))
-        # parsed_ids = [str(x) for x in ids] if ids else None
-        # return cls(ids=parsed_ids, where=where, limit=limit, offset=offset)
-
-
-@api_router.get("/output")
-async def aaa(params: OutputRequest = Depends(OutputRequest.as_query)):
-    print('idsss0', params.ids, params.ids[0])
-    print('idsss1 type', type(params.ids), type(params.ids[0]))
-    ooo = conversations.get(
-        ids=params.ids,
-        # where=params.where,
-        # limit=params.limit,
-        # offset=params.offset,
-    )
-    print("ooooooooo", ooo)
-    return ooo

@@ -19,20 +19,18 @@ async def embed_texts(texts) -> None:
 
 
 async def generate_response(prompt: str, model: str) -> str:
-    # Call ollama's chat function and stream the response # TODO: whats stream mean here?
     stream = ollama.chat(
         model=model,
         messages=[{'role': 'user', 'content': prompt}],
         stream=True
     )
 
-    # Collect the streamed content
     response_text = "".join(chunk['message']['content'] for chunk in stream)
 
     return response_text
 
 
-async def generate_embbeded_response(prompt: str, model: str) -> str:
+async def generate_embedded_response(prompt: str, model: str) -> str:
     embed_result = ollama.embeddings(
         prompt=prompt,
         model=model
