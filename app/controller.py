@@ -11,26 +11,20 @@ api_router = APIRouter()
 class PromptRequest(BaseModel):
     model: str | None = "llama3.2:1b"
     prompt: str
+    rag: bool = True
 
 
-@api_router.post("/generate")
+@api_router.post("/infer")
 async def generate_text(request: PromptRequest):
     model = request.model
     prompt = request.prompt
 
-    response = await generate_response(prompt, model)
+    if request.rag:
+        response = await generate_embedded_response(prompt, model)
+    else:
+        response = await generate_response(prompt, model)
 
-    return {"generated_text": response}
-
-
-@api_router.post("/generate_embed")
-async def generate_embbeded_text(request: PromptRequest):
-    model = request.model
-    prompt = request.prompt
-
-    response = await generate_embedded_response(prompt, model)
-
-    return {"generated_embedded_text": response}
+    return {"response": response}
 
 
 class EmbedRequest(BaseModel):
