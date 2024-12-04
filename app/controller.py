@@ -20,7 +20,6 @@ async def generate_text(request: PromptRequest):
     model = request.model
     prompt = request.prompt
 
-    # Generate the response using the helper function
     response = await generate_response(prompt, model)
 
     return {"generated_text": response}
