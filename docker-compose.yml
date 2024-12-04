@@ -1,0 +1,17 @@
+services:
+  original:
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # Map the container's port 8000 to the host's port 8000
+    volumes:
+      - ./data:/data  # Mount a volume for persistent data if needed
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    restart: unless-stopped

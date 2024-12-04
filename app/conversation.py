@@ -2,8 +2,7 @@ from typing import List
 
 from app.conversation_collection import conversations
 
-
-# import ollama
+import ollama
 
 # async def embed_texts(texts: List[str]) -> None:
 async def embed_texts(texts) -> None:
@@ -17,19 +16,18 @@ async def embed_texts(texts) -> None:
             documents=[d]
         )
 
+# async def generate_response(prompt, model) -> str:
+#     return "aa"
+# async def generate_response(prompt: str, model: str = "llama3.2:1b") -> str
+async def generate_response(prompt: str, model: str = "mxbai-embed-large") -> str:
+    # Call ollama's chat function and stream the response # TODO: whats stream mean here?
+    stream = ollama.chat(
+        model=model,
+        messages=[{'role': 'user', 'content': prompt}],
+        stream=True
+    )
 
-async def generate_response(prompt, model) -> str:
-    return "aa"
-# # async def generate_response(prompt: str, model: str = "llama3.2:1b") -> str
-# async def generate_response(prompt: str, model: str = "mxbai-embed-large") -> str:
-#     # Call ollama's chat function and stream the response # TODO: whats stream mean here?
-#     stream = ollama.chat(
-#         model=model,
-#         messages=[{'role': 'user', 'content': prompt}],
-#         stream=True
-#     )
-#
-#     # Collect the streamed content
-#     response_text = "".join(chunk['message']['content'] for chunk in stream)
-#
-#     return response_text
+    # Collect the streamed content
+    response_text = "".join(chunk['message']['content'] for chunk in stream)
+
+    return response_text
